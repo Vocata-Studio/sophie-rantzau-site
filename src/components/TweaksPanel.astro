@@ -1,0 +1,458 @@
+---
+const palettes = [
+  { id: "clay-deep",    label: "Ler & Dyb",     swatch: ["#ede4d0", "#9fb39c", "#8aacae", "#2f4a48"] },
+  { id: "sand-water",   label: "Sand & Vand",    swatch: ["#f1ebdd", "#5d7f87", "#2f4148"] },
+  { id: "fog-slate",    label: "Tåge & Skifer",  swatch: ["#ece4d2", "#b39574", "#8aacae", "#3a4f5a"] },
+  { id: "stone-moss",   label: "Hvid & Ro",      swatch: ["#ffffff", "#f5f4f1", "#4a6670", "#14171a"] },
+  { id: "white-deep",   label: "Hvid & Dyb",     swatch: ["#ffffff", "#9fb39c", "#8aacae", "#2f4a48"] },
+  { id: "white-lagoon", label: "Hvid & Lagune",  swatch: ["#ffffff", "#eef5f4", "#5fa6a3", "#1d3a3a"] },
+  { id: "white-sage",   label: "Hvid & Salvie",  swatch: ["#ffffff", "#f3f6f1", "#7e9a78", "#283523"] },
+  { id: "white-teal",   label: "Hvid & Hav",     swatch: ["#ffffff", "#eef3f3", "#2f6a68", "#0f2a2b"] },
+];
+
+const types = [
+  { id: "editorial", label: "Editorial", hint: "Cormorant Garamond · Work Sans" },
+  { id: "modern",    label: "Modern",    hint: "Manrope · Manrope" },
+  { id: "mixed",     label: "Mix",       hint: "DM Serif Display · Manrope" },
+];
+
+const sides = [
+  { id: "left",  label: "Venstre" },
+  { id: "right", label: "Højre" },
+];
+
+const logos = [
+  { id: "bridge-line", label: "Line",        desc: "Bro · piers + vand" },
+  { id: "line-flat",   label: "Line · flat",  desc: "Bro · jævnt placerede piers, ingen bue" },
+  { id: "sallingsund", label: "Sallingsund",  desc: "Flad dæk på buer — inspireret af Sallingsundbroen" },
+];
+---
+
+<!-- Trigger button -->
+<button id="tw-trigger" class="tw-trigger" aria-label="Åbn tweaks">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/>
+    <line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/>
+    <line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/>
+    <line x1="1" y1="14" x2="7" y2="14"/>
+    <line x1="9" y1="8" x2="15" y2="8"/>
+    <line x1="17" y1="16" x2="23" y2="16"/>
+  </svg>
+</button>
+
+<!-- Panel -->
+<div id="tw-panel" class="tw-panel" hidden>
+  <div class="tw-header">
+    <b>Tweaks</b>
+    <button class="tw-close" aria-label="Luk">&#10005;</button>
+  </div>
+  <div class="tw-body">
+
+    <!-- PALETTE -->
+    <div class="tw-section">Palette</div>
+    <div class="tw-palette-grid">
+      {palettes.map(p => (
+        <button class="tw-swatch" data-tw-palette={p.id} data-label={p.label}
+                title={p.label} style={`background:${p.swatch[0]}`}>
+          <span class="tw-swatch-stack">
+            {p.swatch.slice(1).map(c => (
+              <i style={`background:${c}`}></i>
+            ))}
+          </span>
+        </button>
+      ))}
+    </div>
+    <div class="tw-hint" id="tw-palette-hint"></div>
+
+    <!-- TYPOGRAFI -->
+    <div class="tw-section">Typografi</div>
+    <div class="tw-seg" id="tw-type-seg">
+      {types.map(t => (
+        <button data-tw-type={t.id} data-hint={t.hint}>{t.label}</button>
+      ))}
+    </div>
+    <div class="tw-hint" id="tw-type-hint"></div>
+
+    <!-- HERO SIDE -->
+    <div class="tw-section">Hero — billede side</div>
+    <div class="tw-seg" id="tw-side-seg">
+      {sides.map(s => (
+        <button data-tw-side={s.id}>{s.label}</button>
+      ))}
+    </div>
+
+    <!-- LOGO -->
+    <div class="tw-section">Logo · placeholder</div>
+    <div class="tw-logo-grid">
+      {logos.map(l => (
+        <button class="tw-logo-card" data-tw-logo={l.id} data-desc={l.desc} title={l.desc}>
+          <span class="tw-logo-name">Sophie Rantzau</span>
+          <span class="tw-logo-svg" data-logo-preview={l.id}></span>
+          <span class="tw-logo-label">{l.label}</span>
+        </button>
+      ))}
+    </div>
+    <div class="tw-hint" id="tw-logo-hint"></div>
+
+  </div>
+</div>
+
+<style>
+  /* ─── trigger ─── */
+  .tw-trigger {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 0;
+    background: rgba(250, 249, 247, .82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 4px 16px rgba(0,0,0,.14);
+    color: #2f4a48;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .tw-trigger:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 6px 24px rgba(0,0,0,.18);
+  }
+
+  /* ─── panel ─── */
+  .tw-panel {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    z-index: 9999;
+    width: 300px;
+    max-height: calc(100vh - 32px);
+    display: flex;
+    flex-direction: column;
+    background: rgba(250, 249, 247, .82);
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    border: .5px solid rgba(255,255,255,.6);
+    border-radius: 14px;
+    box-shadow: 0 1px 0 rgba(255,255,255,.5) inset, 0 12px 40px rgba(0,0,0,.18);
+    font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    font-size: 12px;
+    color: #29261b;
+    overflow: hidden;
+    animation: tw-in .2s ease-out;
+  }
+  .tw-panel[hidden] { display: none; }
+
+  @keyframes tw-in {
+    from { opacity: 0; transform: translateY(8px) scale(.98); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  .tw-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 12px 16px;
+  }
+  .tw-header b { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+
+  .tw-close {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    color: rgba(41,38,27,.5);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tw-close:hover { background: rgba(0,0,0,.06); color: #29261b; }
+
+  .tw-body {
+    padding: 0 16px 16px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,.12) transparent;
+  }
+  .tw-body::-webkit-scrollbar { width: 6px; }
+  .tw-body::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.12); border-radius: 3px;
+  }
+
+  /* ─── section label ─── */
+  .tw-section {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #c08a5f;
+    margin: 18px 0 10px;
+  }
+  .tw-section:first-child { margin-top: 4px; }
+
+  .tw-hint {
+    margin-top: 6px;
+    font-size: 11px;
+    color: #4e4a3f;
+    letter-spacing: .02em;
+    min-height: 16px;
+  }
+
+  /* ─── palette swatches ─── */
+  .tw-palette-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .tw-swatch {
+    position: relative;
+    appearance: none;
+    height: 44px;
+    padding: 0;
+    border: 1px solid rgba(0,0,0,.16);
+    border-radius: 3px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    transition: border-color .12s, outline .12s;
+    outline: 2px solid transparent;
+    outline-offset: -3px;
+  }
+  .tw-swatch.active {
+    border: 2px solid #243733;
+    outline: 2px solid rgba(192,138,95,.3);
+    outline-offset: -4px;
+  }
+  .tw-swatch-stack {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 38%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: -1px 0 0 rgba(0,0,0,.08);
+  }
+  .tw-swatch-stack i {
+    flex: 1;
+    display: block;
+    box-shadow: 0 -1px 0 rgba(0,0,0,.06);
+  }
+  .tw-swatch-stack i:first-child { box-shadow: none; }
+
+  /* ─── segmented control ─── */
+  .tw-seg {
+    display: grid;
+    border: 1px solid rgba(0,0,0,.16);
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f4ecd8;
+  }
+  .tw-seg button {
+    padding: 9px 10px;
+    border: none;
+    background: transparent;
+    color: #243733;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .tw-seg button.active {
+    background: #243733;
+    color: #f4ecd8;
+  }
+  #tw-type-seg { grid-template-columns: repeat(3, 1fr); }
+  #tw-side-seg { grid-template-columns: repeat(2, 1fr); }
+
+  /* ─── logo cards ─── */
+  .tw-logo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .tw-logo-card {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+    padding: 12px 10px 10px;
+    background: transparent;
+    border: 1px solid rgba(0,0,0,.16);
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: left;
+    font-family: inherit;
+    transition: background .12s, border-color .12s;
+  }
+  .tw-logo-card.active {
+    background: #f4ecd8;
+    border: 1.5px solid #243733;
+  }
+  .tw-logo-name {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 1;
+    color: #243733;
+  }
+  .tw-logo-svg {
+    display: block;
+    height: 14px;
+    color: #c08a5f;
+  }
+  .tw-logo-svg svg { width: 100%; height: 100%; display: block; }
+  .tw-logo-label {
+    font-family: "Manrope", system-ui, sans-serif;
+    font-size: 10px;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: #4e4a3f;
+    margin-top: 2px;
+  }
+  .tw-logo-card.active .tw-logo-label { color: #243733; }
+
+  @media (max-width: 400px) {
+    .tw-panel { right: 8px; bottom: 8px; width: calc(100vw - 16px); }
+  }
+</style>
+
+<script is:inline>
+(function () {
+  var DEFAULTS = { palette: 'white-deep', type: 'modern', heroSide: 'right', logo: 'sallingsund' };
+  var PALETTE_LABELS = {
+    'clay-deep': 'Ler & Dyb', 'sand-water': 'Sand & Vand', 'fog-slate': 'Tåge & Skifer',
+    'stone-moss': 'Hvid & Ro', 'white-deep': 'Hvid & Dyb', 'white-lagoon': 'Hvid & Lagune',
+    'white-sage': 'Hvid & Salvie', 'white-teal': 'Hvid & Hav'
+  };
+  var TYPE_HINTS = {
+    'editorial': 'Cormorant Garamond · Work Sans',
+    'modern': 'Manrope · Manrope',
+    'mixed': 'DM Serif Display · Manrope'
+  };
+  var LOGO_DESCS = {
+    'bridge-line': 'Bro · piers + vand',
+    'line-flat': 'Bro · jævnt placerede piers, ingen bue',
+    'sallingsund': 'Flad dæk på buer — inspireret af Sallingsundbroen'
+  };
+
+  var LOGO_SVGS = {
+    'bridge-line': '<svg viewBox="0 0 240 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="4" y1="20" x2="236" y2="20"/><path d="M 78 20 Q 120 0 162 20"/><line x1="78" y1="20" x2="78" y2="30"/><line x1="162" y1="20" x2="162" y2="30"/><line x1="44" y1="20" x2="44" y2="30"/><line x1="196" y1="20" x2="196" y2="30"/><line x1="0" y1="32" x2="240" y2="32" stroke-dasharray="1 4" opacity="0.6"/></svg>',
+    'line-flat': '<svg viewBox="0 0 240 36" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><line x1="4" y1="20" x2="236" y2="20"/><line x1="40" y1="20" x2="40" y2="30"/><line x1="80" y1="20" x2="80" y2="30"/><line x1="120" y1="20" x2="120" y2="30"/><line x1="160" y1="20" x2="160" y2="30"/><line x1="200" y1="20" x2="200" y2="30"/><line x1="0" y1="32" x2="240" y2="32" stroke-dasharray="1 4" opacity="0.6"/></svg>',
+    'sallingsund': '<svg viewBox="0 0 240 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><line x1="0" y1="10" x2="240" y2="10"/><line x1="0" y1="13" x2="240" y2="13"/><path d="M 0 13 Q 20 25 40 13"/><path d="M 40 13 Q 60 25 80 13"/><path d="M 80 13 Q 100 25 120 13"/><path d="M 120 13 Q 140 25 160 13"/><path d="M 160 13 Q 180 25 200 13"/><path d="M 200 13 Q 220 25 240 13"/><line x1="0" y1="13" x2="0" y2="27"/><line x1="40" y1="13" x2="40" y2="27"/><line x1="80" y1="13" x2="80" y2="27"/><line x1="120" y1="13" x2="120" y2="27"/><line x1="160" y1="13" x2="160" y2="27"/><line x1="200" y1="13" x2="200" y2="27"/><line x1="240" y1="13" x2="240" y2="27"/><line x1="0" y1="30" x2="240" y2="30" stroke-dasharray="1 4" opacity="0.6"/></svg>'
+  };
+
+  function load() {
+    try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem('sr-tweaks'))); }
+    catch (e) { return Object.assign({}, DEFAULTS); }
+  }
+  function save(state) {
+    try { localStorage.setItem('sr-tweaks', JSON.stringify(state)); } catch (e) {}
+  }
+
+  var state = load();
+
+  function apply() {
+    var b = document.body;
+    b.dataset.palette = state.palette;
+    b.dataset.type = state.type;
+    b.dataset.heroSide = state.heroSide;
+    b.dataset.logo = state.logo;
+    save(state);
+    updateUI();
+  }
+
+  function updateUI() {
+    document.querySelectorAll('.tw-swatch').forEach(function (el) {
+      el.classList.toggle('active', el.dataset.twPalette === state.palette);
+    });
+    var ph = document.getElementById('tw-palette-hint');
+    if (ph) ph.textContent = PALETTE_LABELS[state.palette] || '';
+
+    document.querySelectorAll('#tw-type-seg button').forEach(function (el) {
+      el.classList.toggle('active', el.dataset.twType === state.type);
+    });
+    var th = document.getElementById('tw-type-hint');
+    if (th) th.textContent = TYPE_HINTS[state.type] || '';
+
+    document.querySelectorAll('#tw-side-seg button').forEach(function (el) {
+      el.classList.toggle('active', el.dataset.twSide === state.heroSide);
+    });
+
+    document.querySelectorAll('.tw-logo-card').forEach(function (el) {
+      el.classList.toggle('active', el.dataset.twLogo === state.logo);
+    });
+    var lh = document.getElementById('tw-logo-hint');
+    if (lh) lh.textContent = LOGO_DESCS[state.logo] || '';
+  }
+
+  // Inject logo preview SVGs
+  document.querySelectorAll('[data-logo-preview]').forEach(function (el) {
+    var id = el.dataset.logoPreview;
+    if (LOGO_SVGS[id]) el.innerHTML = LOGO_SVGS[id];
+  });
+
+  // Palette clicks
+  document.querySelectorAll('.tw-swatch').forEach(function (el) {
+    el.addEventListener('click', function () {
+      state.palette = el.dataset.twPalette;
+      apply();
+    });
+  });
+
+  // Type clicks
+  document.querySelectorAll('#tw-type-seg button').forEach(function (el) {
+    el.addEventListener('click', function () {
+      state.type = el.dataset.twType;
+      apply();
+    });
+  });
+
+  // Side clicks
+  document.querySelectorAll('#tw-side-seg button').forEach(function (el) {
+    el.addEventListener('click', function () {
+      state.heroSide = el.dataset.twSide;
+      apply();
+    });
+  });
+
+  // Logo clicks
+  document.querySelectorAll('.tw-logo-card').forEach(function (el) {
+    el.addEventListener('click', function () {
+      state.logo = el.dataset.twLogo;
+      apply();
+    });
+  });
+
+  // Open / close
+  var trigger = document.getElementById('tw-trigger');
+  var panel = document.getElementById('tw-panel');
+  var close = panel.querySelector('.tw-close');
+
+  trigger.addEventListener('click', function () {
+    panel.hidden = false;
+    trigger.style.display = 'none';
+  });
+  close.addEventListener('click', function () {
+    panel.hidden = true;
+    trigger.style.display = '';
+  });
+
+  // Init
+  apply();
+})();
+</script>

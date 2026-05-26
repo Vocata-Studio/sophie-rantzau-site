@@ -1,0 +1,57 @@
+---
+const testimonials = [
+  {
+    da: 'Sophie har en sjælden evne til at lytte sig ind på det, man ikke selv kan få øje på. Efter et halvt års forløb har jeg taget beslutninger, jeg havde udskudt i flere år.',
+    en: 'Sophie has a rare ability to hear the thing you can\'t quite see yourself. After half a year I\'d made decisions I\'d been putting off for years.',
+    name: 'Mette L.',
+    roleDa: 'Leder, 42 år',
+    roleEn: 'Leader, 42',
+  },
+  {
+    da: 'Det føltes aldrig som terapi, og aldrig som et kursus. Det føltes som en samtale jeg havde brug for, men ikke vidste hvor jeg skulle få.',
+    en: 'It never felt like therapy, and it never felt like a course. It felt like a conversation I\'d needed, but didn\'t know where to find.',
+    name: 'Anders B.',
+    roleDa: 'Iværksætter, 36 år',
+    roleEn: 'Founder, 36',
+  },
+  {
+    da: 'Hun presser ikke. Hun stiller de rigtige spørgsmål, og lader rummet være stille længe nok til, at man selv kan finde svaret.',
+    en: 'She doesn\'t push. She asks the right questions, and lets the room stay quiet long enough that you find the answer yourself.',
+    name: 'Karen S.',
+    roleDa: 'Arkitekt, 51 år',
+    roleEn: 'Architect, 51',
+  },
+];
+---
+
+<section class="testimonials" id="erfaringer">
+  <div class="wrap">
+    <div class="test-head">
+      <h2 class="section" data-da>Hvad andre <em>siger.</em></h2>
+      <h2 class="section" data-en>In their <em>words.</em></h2>
+      <p class="note" data-da>
+        Et udvalg af stemmer fra de mennesker, jeg har haft fornøjelsen
+        af at arbejde med over årene.
+      </p>
+      <p class="note" data-en>
+        A handful of voices from the people I've had the pleasure of
+        working with over the years.
+      </p>
+    </div>
+    <div class="test-grid">
+      {testimonials.map((t) => (
+        <article class="test-card">
+          <p class="test-quote" data-da>{t.da}</p>
+          <p class="test-quote" data-en>{t.en}</p>
+          <div class="test-attr">
+            <strong>{t.name}</strong>
+            <span>
+              <span data-da>{t.roleDa}</span>
+              <span data-en>{t.roleEn}</span>
+            </span>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>

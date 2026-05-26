@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import TweaksPanel from '../components/TweaksPanel.astro';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Sophie Rantzau — Personlig coaching' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="da">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body data-lang="da" data-palette="white-deep" data-hero-side="right" data-logo="sallingsund">
+  <script is:inline>
+    (function(){try{var t=JSON.parse(localStorage.getItem('sr-tweaks'));if(t){var b=document.body;if(t.palette)b.dataset.palette=t.palette;if(t.heroSide)b.dataset.heroSide=t.heroSide;if(t.logo)b.dataset.logo=t.logo;}}catch(e){}})();
+  </script>
+  <slot />
+
+  <script>
+    (function () {
+      const body = document.body;
+      let saved = null;
+      try { saved = localStorage.getItem('sr-lang'); } catch {}
+      if (saved === 'en' || saved === 'da') body.dataset.lang = saved;
+
+      function paint() {
+        const lang = body.dataset.lang;
+        document.querySelectorAll('.lang-switch [data-set-lang]').forEach((b) => {
+          b.classList.toggle('active', b.getAttribute('data-set-lang') === lang);
+        });
+        document.documentElement.lang = lang!;
+      }
+      paint();
+
+      document.querySelectorAll('.lang-switch [data-set-lang]').forEach((b) => {
+        b.addEventListener('click', () => {
+          body.dataset.lang = b.getAttribute('data-set-lang')!;
+          try { localStorage.setItem('sr-lang', body.dataset.lang); } catch {}
+          paint();
+        });
+      });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      function fitLogos() {
+        document.querySelectorAll('.logo').forEach((logo) => {
+          const name = logo.querySelector('.logo-name') as HTMLElement | null;
+          if (!name) return;
+          const w = Math.round(name.getBoundingClientRect().width);
+          if (!w) return;
+          logo.querySelectorAll('.logo-bridge').forEach((b) => {
+            (b as HTMLElement).style.width = w + 'px';
+          });
+        });
+      }
+      fitLogos();
+      window.addEventListener('load', fitLogos);
+      window.addEventListener('resize', fitLogos);
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(fitLogos);
+      }
+    })();
+  </script>
+
+  <TweaksPanel />
+</body>
+</html>

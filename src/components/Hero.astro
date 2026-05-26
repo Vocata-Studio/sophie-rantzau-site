@@ -1,0 +1,68 @@
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <span class="eyebrow">
+        <span data-da>Personlig coaching</span>
+        <span data-en>Personal coaching</span>
+      </span>
+      <h1 class="display demo-toggle display--small" data-da>Jeg bygger bro mellem, hvor du er nu – <em>og hvor du gerne vil være.</em></h1>
+      <h1 class="display demo-toggle display--small" data-en>Bridging the gap between where you are now — <em>and where you want to be.</em></h1>
+      <p class="lede" data-da>
+        Et roligt sted at vende tankerne, mærke efter og finde retning igen.
+        Jeg arbejder med mennesker, der står midt i en forandring — og som ønsker
+        at møde den med klarhed frem for kontrol.
+      </p>
+      <p class="lede" data-en>
+        A quiet place to think out loud, listen in, and find your direction again.
+        I work with people standing in the middle of a change — who'd rather
+        meet it with clarity than with control.
+      </p>
+      <div class="cta-row">
+        <a href="#kontakt" class="btn btn-primary">
+          <span data-da>Book intro-samtale</span>
+          <span data-en>Book intro call</span>
+          <span class="arr">&rarr;</span>
+        </a>
+        <a href="#om" class="btn btn-ghost">
+          <span data-da>Læs om mig</span>
+          <span data-en>About me</span>
+        </a>
+      </div>
+      <div class="hero-meta">
+        <div>
+          <strong>10+</strong>
+          <span data-da>års erfaring fra<br/>UK &amp; nu Nykøbing Mors</span>
+          <span data-en>years of practice<br/>in the UK &amp; now Nykøbing Mors</span>
+        </div>
+        <div>
+          <strong>1:1</strong>
+          <span data-da>private forløb<br/>i dit eget tempo</span>
+          <span data-en>private sessions<br/>at your own pace</span>
+        </div>
+        <div>
+          <strong>DK / EN</strong>
+          <span data-da>sessioner på dansk<br/>eller engelsk</span>
+          <span data-en>sessions in Danish<br/>or English</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-media">
+      <img src="/images/hero-bridge.png" alt="Bro over vandet ved skumringstid" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;" />
+    </div>
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll('.demo-toggle').forEach((h1) => {
+    const original = h1.innerHTML;
+    const alt = 'Collaboration &amp; Commitment <em>Creates Change.</em>';
+    let swapped = false;
+    h1.style.cursor = 'pointer';
+    h1.addEventListener('click', () => {
+      swapped = !swapped;
+      h1.innerHTML = swapped ? alt : original;
+      h1.classList.toggle('display--small', !swapped);
+    });
+  });
+</script>
