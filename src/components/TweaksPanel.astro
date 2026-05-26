@@ -10,12 +10,6 @@ const palettes = [
   { id: "white-teal",   label: "Hvid & Hav",     swatch: ["#ffffff", "#eef3f3", "#2f6a68", "#0f2a2b"] },
 ];
 
-const types = [
-  { id: "editorial", label: "Editorial", hint: "Cormorant Garamond · Work Sans" },
-  { id: "modern",    label: "Modern",    hint: "Manrope · Manrope" },
-  { id: "mixed",     label: "Mix",       hint: "DM Serif Display · Manrope" },
-];
-
 const sides = [
   { id: "left",  label: "Venstre" },
   { id: "right", label: "Højre" },
@@ -63,15 +57,6 @@ const logos = [
       ))}
     </div>
     <div class="tw-hint" id="tw-palette-hint"></div>
-
-    <!-- TYPOGRAFI -->
-    <div class="tw-section">Typografi</div>
-    <div class="tw-seg" id="tw-type-seg">
-      {types.map(t => (
-        <button data-tw-type={t.id} data-hint={t.hint}>{t.label}</button>
-      ))}
-    </div>
-    <div class="tw-hint" id="tw-type-hint"></div>
 
     <!-- HERO SIDE -->
     <div class="tw-section">Hero — billede side</div>
@@ -276,7 +261,6 @@ const logos = [
     background: #243733;
     color: #f4ecd8;
   }
-  #tw-type-seg { grid-template-columns: repeat(3, 1fr); }
   #tw-side-seg { grid-template-columns: repeat(2, 1fr); }
 
   /* ─── logo cards ─── */
@@ -333,16 +317,11 @@ const logos = [
 
 <script is:inline>
 (function () {
-  var DEFAULTS = { palette: 'white-deep', type: 'modern', heroSide: 'right', logo: 'sallingsund' };
+  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund' };
   var PALETTE_LABELS = {
     'clay-deep': 'Ler & Dyb', 'sand-water': 'Sand & Vand', 'fog-slate': 'Tåge & Skifer',
     'stone-moss': 'Hvid & Ro', 'white-deep': 'Hvid & Dyb', 'white-lagoon': 'Hvid & Lagune',
     'white-sage': 'Hvid & Salvie', 'white-teal': 'Hvid & Hav'
-  };
-  var TYPE_HINTS = {
-    'editorial': 'Cormorant Garamond · Work Sans',
-    'modern': 'Manrope · Manrope',
-    'mixed': 'DM Serif Display · Manrope'
   };
   var LOGO_DESCS = {
     'bridge-line': 'Bro · piers + vand',
@@ -369,7 +348,6 @@ const logos = [
   function apply() {
     var b = document.body;
     b.dataset.palette = state.palette;
-    b.dataset.type = state.type;
     b.dataset.heroSide = state.heroSide;
     b.dataset.logo = state.logo;
     save(state);
@@ -382,12 +360,6 @@ const logos = [
     });
     var ph = document.getElementById('tw-palette-hint');
     if (ph) ph.textContent = PALETTE_LABELS[state.palette] || '';
-
-    document.querySelectorAll('#tw-type-seg button').forEach(function (el) {
-      el.classList.toggle('active', el.dataset.twType === state.type);
-    });
-    var th = document.getElementById('tw-type-hint');
-    if (th) th.textContent = TYPE_HINTS[state.type] || '';
 
     document.querySelectorAll('#tw-side-seg button').forEach(function (el) {
       el.classList.toggle('active', el.dataset.twSide === state.heroSide);
@@ -410,14 +382,6 @@ const logos = [
   document.querySelectorAll('.tw-swatch').forEach(function (el) {
     el.addEventListener('click', function () {
       state.palette = el.dataset.twPalette;
-      apply();
-    });
-  });
-
-  // Type clicks
-  document.querySelectorAll('#tw-type-seg button').forEach(function (el) {
-    el.addEventListener('click', function () {
-      state.type = el.dataset.twType;
       apply();
     });
   });
