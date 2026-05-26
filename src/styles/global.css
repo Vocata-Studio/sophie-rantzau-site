@@ -130,7 +130,7 @@ img { display: block; max-width: 100%; }
 
 /* ─── hero ────────────────────────────────────── */
 .hero {
-  padding: clamp(40px, 7vw, 88px) 0 clamp(60px, 8vw, 120px);
+  padding: clamp(28px, 4vw, 56px) 0 clamp(60px, 8vw, 120px);
 }
 .hero-grid {
   display: flex;
@@ -139,12 +139,14 @@ img { display: block; max-width: 100%; }
 .hero-grid > * { flex: 1 1 0; min-width: 0; }
 
 .hero-media {
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 3 / 4;
   border-radius: 2px;
   overflow: hidden;
   position: relative;
   background: var(--bg-2);
-  min-height: 480px;
+  min-height: 400px;
+  max-height: 640px;
+  align-self: center;
 }
 .hero-text { display: flex; flex-direction: column; justify-content: center; padding: 8px 0; }
 
