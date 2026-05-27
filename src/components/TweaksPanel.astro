@@ -29,6 +29,13 @@ const heroImages = [
   { id: "bridge-summer-trees-lawn",   src: "/bridge/bridge-summer-trees-lawn.jpeg",    label: "Sommer & græs" },
   { id: "bridge-summer-greenery-wide",src: "/bridge/bridge-summer-greenery-wide.jpeg", label: "Sommer & grønt" },
 ];
+
+const aboutImages = [
+  { id: "sophie-at-desk-laptop",      src: "/sophie/sophie-at-desk-laptop.png",      label: "Ved skrivebordet" },
+  { id: "sophie-portrait-headshot",   src: "/sophie/sophie-portrait-headshot.png",   label: "Portræt" },
+  { id: "sophie-with-coaching-books", src: "/sophie/sophie-with-coaching-books.png", label: "Med bøger" },
+  { id: "sophie-writing-notes",       src: "/sophie/sophie-writing-notes.png",       label: "Skriver noter" },
+];
 ---
 
 <!-- Trigger button -->
@@ -86,6 +93,18 @@ const heroImages = [
       ))}
     </div>
     <div class="tw-hint" id="tw-img-hint"></div>
+
+    <!-- ABOUT IMAGE -->
+    <div class="tw-section">Om Sophie — billede</div>
+    <div class="tw-img-grid">
+      {aboutImages.map(img => (
+        <button class="tw-img-card" data-tw-aboutimg={img.id} data-src={img.src} title={img.label}>
+          <img src={img.src} alt={img.label} loading="lazy" />
+          <span class="tw-img-label">{img.label}</span>
+        </button>
+      ))}
+    </div>
+    <div class="tw-hint" id="tw-about-img-hint"></div>
 
     <!-- LOGO -->
     <div class="tw-section">Logo · placeholder</div>
@@ -368,6 +387,7 @@ const heroImages = [
     padding: 4px 6px 6px;
   }
   .tw-img-card.active .tw-img-label { color: #243733; font-weight: 600; }
+  .tw-img-card[data-tw-aboutimg] img { aspect-ratio: 3/4; }
 
   @media (max-width: 400px) {
     .tw-panel { right: 8px; bottom: 8px; width: calc(100vw - 16px); }
@@ -376,7 +396,7 @@ const heroImages = [
 
 <script is:inline>
 (function () {
-  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund', heroImage: 'bridge-tower-spring-trees' };
+  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund', heroImage: 'bridge-tower-spring-trees', aboutImage: 'sophie-at-desk-laptop' };
   var PALETTE_LABELS = {
     'clay-deep': 'Ler & Dyb', 'sand-water': 'Sand & Vand', 'fog-slate': 'Tåge & Skifer',
     'stone-moss': 'Hvid & Ro', 'white-deep': 'Hvid & Dyb', 'white-lagoon': 'Hvid & Lagune',
@@ -395,6 +415,13 @@ const heroImages = [
     'bridge-sunset-reeds-shore': 'Siv & solnedgang',
     'bridge-summer-trees-lawn': 'Sommer & græs',
     'bridge-summer-greenery-wide': 'Sommer & grønt'
+  };
+
+  var ABOUT_IMAGE_LABELS = {
+    'sophie-at-desk-laptop': 'Ved skrivebordet',
+    'sophie-portrait-headshot': 'Portræt',
+    'sophie-with-coaching-books': 'Med bøger',
+    'sophie-writing-notes': 'Skriver noter'
   };
 
   var LOGO_SVGS = {
@@ -423,6 +450,11 @@ const heroImages = [
       var card = document.querySelector('[data-tw-heroimg="' + state.heroImage + '"]');
       if (card) heroImg.src = card.dataset.src;
     }
+    var aboutImg = document.getElementById('about-img');
+    if (aboutImg) {
+      var acard = document.querySelector('[data-tw-aboutimg="' + state.aboutImage + '"]');
+      if (acard) aboutImg.src = acard.dataset.src;
+    }
     save(state);
     updateUI();
   }
@@ -438,11 +470,17 @@ const heroImages = [
       el.classList.toggle('active', el.dataset.twSide === state.heroSide);
     });
 
-    document.querySelectorAll('.tw-img-card').forEach(function (el) {
+    document.querySelectorAll('.tw-img-card[data-tw-heroimg]').forEach(function (el) {
       el.classList.toggle('active', el.dataset.twHeroimg === state.heroImage);
     });
     var ih = document.getElementById('tw-img-hint');
     if (ih) ih.textContent = HERO_IMAGE_LABELS[state.heroImage] || '';
+
+    document.querySelectorAll('.tw-img-card[data-tw-aboutimg]').forEach(function (el) {
+      el.classList.toggle('active', el.dataset.twAboutimg === state.aboutImage);
+    });
+    var ah = document.getElementById('tw-about-img-hint');
+    if (ah) ah.textContent = ABOUT_IMAGE_LABELS[state.aboutImage] || '';
 
     document.querySelectorAll('.tw-logo-card').forEach(function (el) {
       el.classList.toggle('active', el.dataset.twLogo === state.logo);
@@ -474,9 +512,17 @@ const heroImages = [
   });
 
   // Hero image clicks
-  document.querySelectorAll('.tw-img-card').forEach(function (el) {
+  document.querySelectorAll('.tw-img-card[data-tw-heroimg]').forEach(function (el) {
     el.addEventListener('click', function () {
       state.heroImage = el.dataset.twHeroimg;
+      apply();
+    });
+  });
+
+  // About image clicks
+  document.querySelectorAll('.tw-img-card[data-tw-aboutimg]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      state.aboutImage = el.dataset.twAboutimg;
       apply();
     });
   });

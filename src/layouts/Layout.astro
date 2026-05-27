@@ -21,7 +21,7 @@ const { title = 'Sophie Rantzau — Personlig coaching' } = Astro.props;
 </head>
 <body data-lang="da" data-palette="white-deep" data-hero-side="right" data-logo="sallingsund">
   <script is:inline>
-    (function(){try{var t=JSON.parse(localStorage.getItem('sr-tweaks'));if(t){var b=document.body;if(t.palette)b.dataset.palette=t.palette;if(t.heroSide)b.dataset.heroSide=t.heroSide;if(t.logo)b.dataset.logo=t.logo;if(t.heroImage)b.dataset.heroImage=t.heroImage;}}catch(e){}})();
+    (function(){try{var t=JSON.parse(localStorage.getItem('sr-tweaks'));if(t){var b=document.body;if(t.palette)b.dataset.palette=t.palette;if(t.heroSide)b.dataset.heroSide=t.heroSide;if(t.logo)b.dataset.logo=t.logo;if(t.heroImage)b.dataset.heroImage=t.heroImage;if(t.aboutImage)b.dataset.aboutImage=t.aboutImage;}}catch(e){}})();
   </script>
   <slot />
 
