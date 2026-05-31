@@ -152,7 +152,7 @@ img { display: block; max-width: 100%; }
 
 .eyebrow {
   font-family: var(--body);
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--clay);
