@@ -5,8 +5,8 @@
         <span data-da>Personlig coaching</span>
         <span data-en>Personal coaching</span>
       </span>
-      <h1 class="display demo-toggle display--small" data-da>Jeg bygger bro mellem, hvor du er nu – <em>og hvor du gerne vil være.</em></h1>
-      <h1 class="display demo-toggle display--small" data-en>Bridging the gap between where you are now — <em>and where you want to be.</em></h1>
+      <h1 class="display display--small" data-da>Jeg bygger bro mellem, hvor du er nu – <em>og hvor du gerne vil være.</em></h1>
+      <h1 class="display display--small" data-en>Bridging the gap between where you are now — <em>and where you want to be.</em></h1>
       <p class="lede" data-da>
         Et roligt sted at vende tankerne, mærke efter og finde retning igen.
         Jeg arbejder med mennesker, der står midt i en forandring — og som ønsker
@@ -52,17 +52,3 @@
     </div>
   </div>
 </section>
-
-<script>
-  document.querySelectorAll('.demo-toggle').forEach((h1) => {
-    const original = h1.innerHTML;
-    const alt = 'Collaboration &amp; Commitment <em>Creates Change.</em>';
-    let swapped = false;
-    h1.style.cursor = 'pointer';
-    h1.addEventListener('click', () => {
-      swapped = !swapped;
-      h1.innerHTML = swapped ? alt : original;
-      h1.classList.toggle('display--small', !swapped);
-    });
-  });
-</script>
