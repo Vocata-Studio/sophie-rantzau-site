@@ -357,7 +357,10 @@ h2.section em { font-style: italic; color: var(--clay); }
   max-width: 26ch;
   margin-bottom: clamp(40px, 5vw, 72px);
 }
-.how-head h2.section { margin-bottom: 0; }
+.how-head h2.section { margin-bottom: 0; white-space: nowrap; }
+@media (max-width: 560px) {
+  .how-head h2.section { white-space: normal; }
+}
 .how-steps {
   list-style: none;
   margin: 0;
