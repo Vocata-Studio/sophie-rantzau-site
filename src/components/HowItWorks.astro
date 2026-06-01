@@ -1,0 +1,77 @@
+---
+const steps = [
+  {
+    da: {
+      title: 'Vi starter med en intro-samtale',
+      body: 'En kort samtale på cirka en halv time, hvor vi mærker hinanden an og finder ud af, hvad du egentlig gerne vil arbejde med.',
+    },
+    en: {
+      title: 'We start with a discovery call',
+      body: 'A short call — about half an hour — where we get a feel for each other and for what you’re really here to work on.',
+    },
+  },
+  {
+    da: {
+      title: 'Du booker din første session',
+      body: 'Du vælger selv, hvor lang den skal være: én time, halvanden eller to. De fleste vælger halvanden til den første — det giver os ro til at finde ud af, hvor gabet egentlig ligger, og til stille og roligt at slippe de spor og blindgyder, der kan dukke op undervejs. Men én time fungerer lige så fint. Det skal passe til dig.',
+    },
+    en: {
+      title: 'You book your first session',
+      body: 'You choose how long it runs: one hour, an hour and a half, or two. Most people pick 90 minutes for the first one — it gives us room to slow down, find where the gap really is, and gently let go of the paths and false trails along the way. But an hour works just as well. It has to fit you.',
+    },
+  },
+  {
+    da: {
+      title: 'Derefter er det enkelt',
+      body: 'Du får adgang til min kalender, så du kan booke, når du vil se mig, og for hvor længe — med et enkelt klik. Livet sker, og planer ændrer sig; har du brug for at flytte en session, beder jeg blot om, at du giver besked senest 24 timer før.',
+    },
+    en: {
+      title: 'After that, it’s simple',
+      body: 'You’ll have access to my calendar, so you can book when you’d like to see me and for how long — at the click of a button. Life happens and plans shift; if you need to move a session, all I ask is that you let me know at least 24 hours ahead.',
+    },
+  },
+];
+---
+
+<section class="how" id="saadan">
+  <div class="wrap">
+    <div class="how-head">
+      <span class="eyebrow">
+        <span data-da>Sådan foregår det</span><span data-en>How it works</span>
+      </span>
+      <h2 class="section" data-da>Fra første hej til <em>din egen rytme.</em></h2>
+      <h2 class="section" data-en>From first hello to <em>your own rhythm.</em></h2>
+    </div>
+
+    <ol class="how-steps">
+      {steps.map((s, i) => (
+        <li class="how-step">
+          <span class="how-num">{String(i + 1).padStart(2, '0')}</span>
+          <div class="how-step-body">
+            <h3 data-da>{s.da.title}</h3>
+            <h3 data-en>{s.en.title}</h3>
+            <p data-da>{s.da.body}</p>
+            <p data-en>{s.en.body}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+
+    <div class="how-price">
+      <span class="how-price-amount">
+        <span data-da>1.050 kr. i timen</span>
+        <span data-en>1,050 kr per hour</span>
+      </span>
+      <span class="how-price-note" data-da>Du vælger selv længden, der passer dig — så betaler du kun for den tid, vi sætter af.</span>
+      <span class="how-price-note" data-en>You choose the length that suits you — so you only pay for the time we set aside.</span>
+    </div>
+
+    <div class="how-cta">
+      <a href="#kontakt" class="btn btn-primary">
+        <span data-da>Book gratis intro-samtale</span>
+        <span data-en>Book Free Discovery Call</span>
+        <span class="arr">&rarr;</span>
+      </a>
+    </div>
+  </div>
+</section>

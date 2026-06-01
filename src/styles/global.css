@@ -348,6 +348,82 @@ h2.section em { font-style: italic; color: var(--clay); }
   font-family: var(--body);
 }
 
+/* ─── how it works ────────────────────────────── */
+.how {
+  padding: clamp(72px, 9vw, 128px) 0;
+  background: var(--bg-2);
+}
+.how-head {
+  max-width: 26ch;
+  margin-bottom: clamp(40px, 5vw, 72px);
+}
+.how-head h2.section { margin-bottom: 0; }
+.how-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(28px, 3vw, 56px);
+}
+.how-step {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+}
+.how-num {
+  font-family: var(--display);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  color: var(--clay);
+}
+.how-step-body h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(20px, 1.6vw, 24px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--deep);
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+.how-step-body p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+.how-price {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: clamp(32px, 4vw, 48px);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 20px;
+}
+.how-price-amount {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(26px, 2.6vw, 34px);
+  letter-spacing: -0.01em;
+  color: var(--deep);
+  white-space: nowrap;
+}
+.how-price-note {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 42ch;
+}
+.how-cta {
+  margin-top: clamp(28px, 3vw, 40px);
+}
+
 /* ─── footer ──────────────────────────────────── */
 .footer {
   background: var(--deep);
@@ -559,6 +635,9 @@ body[data-logo="sallingsund"] .logo-bridge--sallingsund    { display: block; }
   .about-grid { grid-template-columns: 1fr; }
   .hero-media, .about-media { aspect-ratio: 4/3; min-height: 280px; max-height: 420px; }
   .test-grid { grid-template-columns: 1fr; }
+  .how-steps { grid-template-columns: 1fr; gap: 0; }
+  .how-step { padding: 24px 0; }
+  .how-step:first-child { padding-top: 0; border-top: none; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .nav-links { display: none; }
   .nav-cta--desktop { display: none; }
