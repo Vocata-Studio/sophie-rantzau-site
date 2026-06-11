@@ -31,6 +31,7 @@ const heroImages = [
 ];
 
 const aboutImages = [
+  { id: "sophie-main-temp",           src: "/sophie/sophie-main-temp.png",           label: "Hovedbillede" },
   { id: "sophie-at-desk-laptop",      src: "/sophie/sophie-at-desk-laptop.png",      label: "Ved skrivebordet" },
   { id: "sophie-portrait-headshot",   src: "/sophie/sophie-portrait-headshot.png",   label: "Portræt" },
   { id: "sophie-with-coaching-books", src: "/sophie/sophie-with-coaching-books.png", label: "Med bøger" },
@@ -57,6 +58,14 @@ const aboutImages = [
     <button class="tw-close" aria-label="Luk">&#10005;</button>
   </div>
   <div class="tw-body">
+
+    <!-- HIGHLIGHTS -->
+    <div class="tw-section">Ændringer · highlights</div>
+    <div class="tw-seg" id="tw-hl-seg">
+      <button data-tw-hl="on">Vis</button>
+      <button data-tw-hl="off">Skjul</button>
+    </div>
+    <div class="tw-hint" id="tw-hl-hint"></div>
 
     <!-- PALETTE -->
     <div class="tw-section">Palette</div>
@@ -302,6 +311,7 @@ const aboutImages = [
     color: #f4ecd8;
   }
   #tw-side-seg { grid-template-columns: repeat(2, 1fr); }
+  #tw-hl-seg { grid-template-columns: repeat(2, 1fr); }
 
   /* ─── logo cards ─── */
   .tw-logo-grid {
@@ -396,7 +406,7 @@ const aboutImages = [
 
 <script is:inline>
 (function () {
-  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund', heroImage: 'bridge-tower-spring-trees', aboutImage: 'sophie-at-desk-laptop' };
+  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund', heroImage: 'bridge-tower-spring-trees', aboutImage: 'sophie-main-temp', highlights: 'on' };
   var PALETTE_LABELS = {
     'clay-deep': 'Ler & Dyb', 'sand-water': 'Sand & Vand', 'fog-slate': 'Tåge & Skifer',
     'stone-moss': 'Hvid & Ro', 'white-deep': 'Hvid & Dyb', 'white-lagoon': 'Hvid & Lagune',
@@ -418,6 +428,7 @@ const aboutImages = [
   };
 
   var ABOUT_IMAGE_LABELS = {
+    'sophie-main-temp': 'Hovedbillede',
     'sophie-at-desk-laptop': 'Ved skrivebordet',
     'sophie-portrait-headshot': 'Portræt',
     'sophie-with-coaching-books': 'Med bøger',
@@ -445,6 +456,7 @@ const aboutImages = [
     b.dataset.palette = state.palette;
     b.dataset.heroSide = state.heroSide;
     b.dataset.logo = state.logo;
+    b.dataset.highlights = state.highlights;
     var heroImg = document.getElementById('hero-img');
     if (heroImg) {
       var card = document.querySelector('[data-tw-heroimg="' + state.heroImage + '"]');
@@ -487,6 +499,12 @@ const aboutImages = [
     });
     var lh = document.getElementById('tw-logo-hint');
     if (lh) lh.textContent = LOGO_DESCS[state.logo] || '';
+
+    document.querySelectorAll('#tw-hl-seg button').forEach(function (el) {
+      el.classList.toggle('active', el.dataset.twHl === state.highlights);
+    });
+    var hh = document.getElementById('tw-hl-hint');
+    if (hh) hh.textContent = state.highlights === 'on' ? 'Gule markeringer af denne uges ændringer' : 'Markeringer skjult';
   }
 
   // Inject logo preview SVGs
@@ -531,6 +549,14 @@ const aboutImages = [
   document.querySelectorAll('.tw-logo-card').forEach(function (el) {
     el.addEventListener('click', function () {
       state.logo = el.dataset.twLogo;
+      apply();
+    });
+  });
+
+  // Highlight toggle clicks
+  document.querySelectorAll('#tw-hl-seg button').forEach(function (el) {
+    el.addEventListener('click', function () {
+      state.highlights = el.dataset.twHl;
       apply();
     });
   });
