@@ -114,8 +114,8 @@ body[data-highlights="off"] .hl {
   transition: background .2s, color .2s, border-color .2s;
 }
 .nav-cta:hover {
-  background: color-mix(in oklab, var(--deep) 82%, #000);
-  border-color: color-mix(in oklab, var(--deep) 82%, #000);
+  background: var(--clay);
+  border-color: var(--clay);
 }
 
 /* ─── logo ────────────────────────────────────── */
@@ -216,9 +216,9 @@ h1.display--small { font-size: clamp(26px, 3vw, 42px); }
   display: inline-flex; align-items: center; gap: 10px;
 }
 .btn-primary { background: var(--deep); color: var(--paper); }
-.btn-primary:hover { background: #0f1c1a; }
+.btn-primary:hover { background: var(--clay); border-color: var(--clay); }
 .btn-ghost { background: transparent; color: var(--deep); border-color: color-mix(in oklab, var(--deep) 30%, transparent); }
-.btn-ghost:hover { border-color: var(--deep); }
+.btn-ghost:hover { border-color: var(--clay); color: var(--clay); }
 .btn .arr { transition: transform .25s; }
 .btn:hover .arr { transform: translateX(3px); }
 
