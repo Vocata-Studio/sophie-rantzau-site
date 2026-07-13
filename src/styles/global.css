@@ -172,7 +172,8 @@ img { display: block; max-width: 100%; }
   max-height: 640px;
   align-self: center;
 }
-.hero-text { display: flex; flex-direction: column; justify-content: center; padding: 8px 0; }
+.hero-col { display: flex; flex-direction: column; justify-content: center; }
+.hero-text { display: flex; flex-direction: column; padding: 8px 0; }
 
 .eyebrow {
   font-family: var(--body);
@@ -892,9 +893,9 @@ body[data-btn-style="rounded"] .nav-cta { border-radius: 8px; }
 
 /* ─── hero image side ─────────────────────────── */
 body[data-hero-side="right"] .hero-media { order: 2; }
-body[data-hero-side="right"] .hero-text  { order: 1; }
+body[data-hero-side="right"] .hero-col   { order: 1; }
 body[data-hero-side="left"]  .hero-media { order: 1; }
-body[data-hero-side="left"]  .hero-text  { order: 2; }
+body[data-hero-side="left"]  .hero-col   { order: 2; }
 
 /* ─── logo variants ───────────────────────────── */
 .logo-bridge--bridge-line,
@@ -977,8 +978,10 @@ body[data-logo="sallingsund"] .logo-bridge--sallingsund    { display: block; }
   .nav-links { display: none; }
   .nav-cta--desktop { display: none; }
   .burger { display: flex; }
-  .hero-media { order: 2 !important; }
+  .hero-col { display: contents; }
   .hero-text { order: 1 !important; }
+  .hero-media { order: 2 !important; }
+  .hero-meta { order: 3 !important; }
   .test-card { min-height: auto; padding: 28px 24px 22px; }
   .test-quote { font-size: 17px; margin: 20px 0 20px; }
   .test-card::before { font-size: 60px; top: 4px; left: 16px; }
