@@ -8,6 +8,9 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "astro": "^5.8.0"
+    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/vercel": "^9.0.5",
+    "astro": "^5.8.0",
+    "resend": "^6.17.2"
   }
 }
