@@ -1,0 +1,15 @@
+---
+interface Props {
+  variant?: 'horizontal' | 'stacked';
+}
+
+const { variant = 'horizontal' } = Astro.props;
+
+const asset = variant === 'stacked'
+  ? { src: '/brand/logo-primary.png', w: 1528, h: 624 }
+  : { src: '/brand/logo-secondary.webp', w: 1226, h: 233 };
+---
+
+<a href="#" class:list={['brand-logo', `brand-logo--${variant}`]} aria-label="Sophie Rantzau">
+  <img src={asset.src} alt="Sophie Rantzau" width={asset.w} height={asset.h} decoding="async" />
+</a>

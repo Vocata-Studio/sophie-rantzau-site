@@ -123,6 +123,24 @@ body[data-highlights="off"] .hl {
   border-color: var(--clay);
 }
 
+/* ─── brand logo (designer assets) ────────────── */
+.brand-logo {
+  display: inline-block;
+  line-height: 0;
+}
+.brand-logo img {
+  display: block;
+  width: auto;
+  height: 36px;
+}
+.brand-logo--stacked img {
+  height: clamp(72px, 8vw, 92px);
+}
+/* footer sits on dark green — flip the green mark to white */
+.footer .brand-logo img {
+  filter: brightness(0) invert(1);
+}
+
 /* ─── logo ────────────────────────────────────── */
 .logo {
   display: inline-block;
@@ -678,7 +696,19 @@ h2.section em { font-style: italic; color: var(--clay); }
 .footer {
   background: var(--deep);
   color: color-mix(in oklab, var(--paper) 90%, transparent);
-  padding: clamp(72px, 8vw, 112px) 0 36px;
+  padding: 0 0 36px;
+}
+.footer-separator {
+  padding: clamp(40px, 6vw, 68px) var(--gutter) clamp(52px, 7vw, 84px);
+}
+.footer-separator img {
+  width: 100%;
+  height: clamp(40px, 6vw, 72px);
+  object-fit: contain;
+  object-position: center;
+  transform: scaleX(-1);
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
 }
 .footer-grid {
   display: grid;
