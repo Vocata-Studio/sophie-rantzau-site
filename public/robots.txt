@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sophierantzau.dk/sitemap-index.xml

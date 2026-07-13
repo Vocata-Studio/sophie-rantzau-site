@@ -4,9 +4,72 @@ import '../styles/global.css';
 
 interface Props {
   title?: string;
+  description?: string;
+  image?: string;
 }
 
-const { title = 'Sophie Rantzau — Personlig coaching' } = Astro.props;
+const {
+  title = 'Sophie Rantzau — Personlig coaching i Nykøbing Mors & online',
+  description =
+    'Personlig coaching med Sophie Rantzau — senior akkrediteret coach med 10+ års erfaring. 1:1 forløb online på dansk og engelsk. Book en gratis intro-samtale.',
+  image = '/brand/og-image.jpg',
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://sophierantzau.dk');
+const socialImage = new URL(image, Astro.site ?? 'https://sophierantzau.dk');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfessionalService',
+      '@id': `${canonicalURL.origin}/#business`,
+      name: 'Sophie Rantzau — Personlig coaching',
+      description,
+      url: canonicalURL.origin,
+      image: socialImage.href,
+      telephone: '+45 30 88 08 28',
+      email: 'hej@sophierantzau.dk',
+      priceRange: '1.050 kr.',
+      areaServed: [
+        { '@type': 'Country', name: 'Danmark' },
+        { '@type': 'Country', name: 'United Kingdom' },
+      ],
+      availableLanguage: ['da', 'en'],
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Nykøbing Mors',
+        addressCountry: 'DK',
+      },
+      sameAs: ['https://www.facebook.com/profile.php?id=61587224121486'],
+      founder: { '@id': `${canonicalURL.origin}/#sophie` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${canonicalURL.origin}/#sophie`,
+      name: 'Sophie Rantzau',
+      jobTitle: 'Senior akkrediteret coach',
+      description:
+        'Senior akkrediteret coach med mere end ti års erfaring. Uddannet og kvalificeret i England, bosat i Nykøbing Mors, Danmark.',
+      url: canonicalURL.origin,
+      image: socialImage.href,
+      email: 'hej@sophierantzau.dk',
+      telephone: '+45 30 88 08 28',
+      knowsLanguage: ['da', 'en'],
+      worksFor: { '@id': `${canonicalURL.origin}/#business` },
+      sameAs: ['https://www.facebook.com/profile.php?id=61587224121486'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${canonicalURL.origin}/#website`,
+      url: canonicalURL.origin,
+      name: 'Sophie Rantzau',
+      description,
+      inLanguage: 'da-DK',
+      publisher: { '@id': `${canonicalURL.origin}/#business` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -14,10 +77,44 @@ const { title = 'Sophie Rantzau — Personlig coaching' } = Astro.props;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonicalURL.href} />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Sophie Rantzau" />
+  <meta name="theme-color" content="#2f4a48" />
+  <meta name="generator" content={Astro.generator} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Sophie Rantzau" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonicalURL.href} />
+  <meta property="og:image" content={socialImage.href} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Sophie Rantzau — personlig coach" />
+  <meta property="og:locale" content="da_DK" />
+  <meta property="og:locale:alternate" content="en_GB" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={socialImage.href} />
+  <meta name="twitter:image:alt" content="Sophie Rantzau — personlig coach" />
+
+  <link rel="icon" type="image/png" href="/brand/Favicon_green.png" />
+  <link rel="apple-touch-icon" href="/brand/Favicon_green.png" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 </head>
 <body data-lang="da" data-palette="white-deep" data-hero-side="right" data-logo="sallingsund">
   <script is:inline>
