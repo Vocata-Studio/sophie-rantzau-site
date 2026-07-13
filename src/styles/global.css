@@ -696,7 +696,10 @@ h2.section em { font-style: italic; color: var(--clay); }
 .footer {
   background: var(--deep);
   color: color-mix(in oklab, var(--paper) 90%, transparent);
-  padding: 0 0 36px;
+  padding: 0;
+}
+.footer > .wrap {
+  padding-bottom: 44px;
 }
 .footer-separator {
   padding: clamp(40px, 6vw, 68px) var(--gutter) clamp(52px, 7vw, 84px);
@@ -730,6 +733,24 @@ h2.section em { font-style: italic; color: var(--clay); }
 .footer li { margin-bottom: 10px; font-size: 14px; }
 .footer a { transition: color .2s; }
 .footer a:hover { color: var(--paper); }
+.footer-social { display: flex; gap: 12px; }
+.footer-social li { margin-bottom: 0; }
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: color-mix(in oklab, var(--paper) 88%, transparent);
+  border: 1px solid color-mix(in oklab, var(--paper) 24%, transparent);
+  transition: color .2s, background-color .2s, border-color .2s;
+}
+.social-icon:hover {
+  color: var(--paper);
+  background-color: color-mix(in oklab, var(--paper) 12%, transparent);
+  border-color: color-mix(in oklab, var(--paper) 40%, transparent);
+}
 .footer-tag {
   font-family: var(--body);
   font-style: normal;
@@ -749,6 +770,36 @@ h2.section em { font-style: italic; color: var(--clay); }
   font-size: 12px;
   letter-spacing: 0.04em;
   color: color-mix(in oklab, var(--paper) 60%, transparent);
+}
+
+/* ─── vocata studio signature ──────────────────── */
+.vocata-signature {
+  display: block;
+  border-top: 1px solid color-mix(in oklab, var(--paper) 10%, transparent);
+  transition: background-color .2s;
+}
+.vocata-signature:hover {
+  background-color: color-mix(in oklab, var(--paper) 4%, transparent);
+}
+.vocata-signature-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 24px;
+}
+.vocata-signature img {
+  width: 30px;
+  height: 30px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+.vocata-signature span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: color-mix(in oklab, var(--paper) 50%, transparent);
 }
 
 /* ─── nature gradient placeholder (about image) ── */

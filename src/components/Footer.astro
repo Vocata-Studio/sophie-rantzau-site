@@ -27,15 +27,32 @@ import Logo from './Logo.astro';
       </div>
       <div>
         <h5><span data-da>Følg med</span><span data-en>Follow</span></h5>
-        <ul>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Facebook</a></li>
+        <ul class="footer-social">
+          <li>
+            <a href="https://www.facebook.com/profile.php?id=61587224121486" class="social-icon" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 Sophie Rantzau &middot; CVR 46254716</span>
-      <span><a href="#"><span data-da>Persondatapolitik</span><span data-en>Privacy</span></a> &middot; <a href="#">Cookies</a></span>
+      <span><a href="/privatlivspolitik"><span data-da>Persondatapolitik</span><span data-en>Privacy</span></a> &middot; <a href="/privatlivspolitik#cookies">Cookies</a></span>
     </div>
   </div>
+  <a
+    href="https://vocata.studio/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="vocata-signature"
+    aria-label="Designet & Udviklet af Vocata Studio"
+  >
+    <span class="vocata-signature-inner">
+      <img src="/vocata-signature.png" alt="Vocata Studio" width="30" height="30" decoding="async" />
+      <span>Designet &amp; Udviklet af Vocata Studio</span>
+    </span>
+  </a>
 </footer>
