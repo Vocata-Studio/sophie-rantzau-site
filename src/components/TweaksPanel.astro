@@ -1,13 +1,6 @@
 ---
 const palettes = [
-  { id: "clay-deep",    label: "Ler & Dyb",     swatch: ["#ede4d0", "#9fb39c", "#8aacae", "#2f4a48"] },
-  { id: "sand-water",   label: "Sand & Vand",    swatch: ["#f1ebdd", "#5d7f87", "#2f4148"] },
-  { id: "fog-slate",    label: "Tåge & Skifer",  swatch: ["#ece4d2", "#b39574", "#8aacae", "#3a4f5a"] },
-  { id: "stone-moss",   label: "Hvid & Ro",      swatch: ["#ffffff", "#f5f4f1", "#4a6670", "#14171a"] },
   { id: "white-deep",   label: "Hvid & Dyb",     swatch: ["#ffffff", "#9fb39c", "#8aacae", "#2f4a48"] },
-  { id: "white-lagoon", label: "Hvid & Lagune",  swatch: ["#ffffff", "#eef5f4", "#5fa6a3", "#1d3a3a"] },
-  { id: "white-sage",   label: "Hvid & Salvie",  swatch: ["#ffffff", "#f3f6f1", "#7e9a78", "#283523"] },
-  { id: "white-teal",   label: "Hvid & Hav",     swatch: ["#ffffff", "#eef3f3", "#2f6a68", "#0f2a2b"] },
 ];
 
 const sides = [
@@ -23,22 +16,10 @@ const logos = [
 
 const heroImages = [
   { id: "bridge-tower-spring-trees",  src: "/bridge/bridge-tower-spring-trees.jpeg",   label: "Træer & himmel" },
-  { id: "bridge-sunset-winter-trees", src: "/bridge/bridge-sunset-winter-trees.jpeg",  label: "Zoomed solnedgang" },
-  { id: "bridge-panorama-pink-sunset",src: "/bridge/bridge-panorama-pink-sunset.jpeg", label: "Pink panorama" },
-  { id: "bridge-sunset-reeds-shore",  src: "/bridge/bridge-sunset-reeds-shore.jpeg",   label: "Siv & solnedgang" },
-  { id: "bridge-summer-trees-lawn",   src: "/bridge/bridge-summer-trees-lawn.jpeg",    label: "Sommer & græs" },
-  { id: "bridge-summer-greenery-wide",src: "/bridge/bridge-summer-greenery-wide.jpeg", label: "Sommer & grønt" },
 ];
 
 const aboutImages = [
-  { id: "sophie-main-temp",           src: "/sophie/sophie-main-temp.png",           label: "Hovedbillede" },
-  { id: "sophie-at-desk-laptop",      src: "/sophie/sophie-at-desk-laptop.png",      label: "Ved skrivebordet" },
-  { id: "sophie-portrait-headshot",   src: "/sophie/sophie-portrait-headshot.png",   label: "Portræt" },
-  { id: "sophie-with-coaching-books", src: "/sophie/sophie-with-coaching-books.png", label: "Med bøger" },
-  { id: "sophie-writing-notes",       src: "/sophie/sophie-writing-notes.png",       label: "Skriver noter" },
-  { id: "sophie-white-blouse",        src: "/sophie/sophie-white-blouse.png",        label: "Hvid bluse" },
-  { id: "ved-skrivebord2",            src: "/sophie/ved-skrivebord2.png",            label: "Ved skrivebord 2" },
-  { id: "haand-paa-hage",             src: "/sophie/hånd-på-hage.jpg",               label: "Hånd på hage" },
+  { id: "sophie-highres",             src: "/sophie/Sophie%20Rantzau%20High%20Res.jpg", label: "Højopløst portræt" },
 ];
 ---
 
@@ -403,11 +384,9 @@ const aboutImages = [
 
 <script is:inline>
 (function () {
-  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund', heroImage: 'bridge-tower-spring-trees', aboutImage: 'sophie-main-temp', highlights: 'off', btnStyle: 'square' };
+  var DEFAULTS = { palette: 'white-deep', heroSide: 'right', logo: 'sallingsund', heroImage: 'bridge-tower-spring-trees', aboutImage: 'sophie-highres', highlights: 'off', btnStyle: 'square' };
   var PALETTE_LABELS = {
-    'clay-deep': 'Ler & Dyb', 'sand-water': 'Sand & Vand', 'fog-slate': 'Tåge & Skifer',
-    'stone-moss': 'Hvid & Ro', 'white-deep': 'Hvid & Dyb', 'white-lagoon': 'Hvid & Lagune',
-    'white-sage': 'Hvid & Salvie', 'white-teal': 'Hvid & Hav'
+    'white-deep': 'Hvid & Dyb'
   };
   var LOGO_DESCS = {
     'bridge-line': 'Bro · piers + vand',
@@ -416,23 +395,11 @@ const aboutImages = [
   };
 
   var HERO_IMAGE_LABELS = {
-    'bridge-sunset-winter-trees': 'Zoomed solnedgang',
-    'bridge-tower-spring-trees': 'Træer & himmel',
-    'bridge-panorama-pink-sunset': 'Pink panorama',
-    'bridge-sunset-reeds-shore': 'Siv & solnedgang',
-    'bridge-summer-trees-lawn': 'Sommer & græs',
-    'bridge-summer-greenery-wide': 'Sommer & grønt'
+    'bridge-tower-spring-trees': 'Træer & himmel'
   };
 
   var ABOUT_IMAGE_LABELS = {
-    'sophie-main-temp': 'Hovedbillede',
-    'sophie-at-desk-laptop': 'Ved skrivebordet',
-    'sophie-portrait-headshot': 'Portræt',
-    'sophie-with-coaching-books': 'Med bøger',
-    'sophie-writing-notes': 'Skriver noter',
-    'sophie-white-blouse': 'Hvid bluse',
-    'ved-skrivebord2': 'Ved skrivebord 2',
-    'haand-paa-hage': 'Hånd på hage'
+    'sophie-highres': 'Højopløst portræt'
   };
 
   var LOGO_SVGS = {
@@ -441,16 +408,34 @@ const aboutImages = [
     'sallingsund': '<svg viewBox="0 0 240 32" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"><line x1="0" y1="10" x2="240" y2="10"/><line x1="0" y1="13" x2="240" y2="13"/><path d="M 0 13 Q 20 25 40 13"/><path d="M 40 13 Q 60 25 80 13"/><path d="M 80 13 Q 100 25 120 13"/><path d="M 120 13 Q 140 25 160 13"/><path d="M 160 13 Q 180 25 200 13"/><path d="M 200 13 Q 220 25 240 13"/><line x1="0" y1="13" x2="0" y2="27"/><line x1="40" y1="13" x2="40" y2="27"/><line x1="80" y1="13" x2="80" y2="27"/><line x1="120" y1="13" x2="120" y2="27"/><line x1="160" y1="13" x2="160" y2="27"/><line x1="200" y1="13" x2="200" y2="27"/><line x1="240" y1="13" x2="240" y2="27"/><line x1="0" y1="30" x2="240" y2="30" stroke-dasharray="1 4" opacity="0.6"/></svg>'
   };
 
+  var SYNC_KEYS = ['palette','heroSide','logo','heroImage','aboutImage','btnStyle'];
+
   function load() {
-    try { return Object.assign({}, DEFAULTS, JSON.parse(localStorage.getItem('sr-tweaks'))); }
-    catch (e) { return Object.assign({}, DEFAULTS); }
+    var stored = {};
+    try { stored = JSON.parse(localStorage.getItem('sr-tweaks')) || {}; } catch(e) {}
+    var result = Object.assign({}, DEFAULTS, stored);
+    // URL params win — lets you share/bookmark exact state across devices
+    var params = new URLSearchParams(window.location.search);
+    SYNC_KEYS.forEach(function(k) {
+      if (params.has(k)) result[k] = params.get(k);
+    });
+    return result;
   }
+
   function save(state) {
+    // localStorage
     try {
       var toSave = Object.assign({}, state);
       delete toSave.highlights;
       localStorage.setItem('sr-tweaks', JSON.stringify(toSave));
-    } catch (e) {}
+    } catch(e) {}
+    // URL — only non-default values so the URL stays clean
+    var params = new URLSearchParams();
+    SYNC_KEYS.forEach(function(k) {
+      if (state[k] !== DEFAULTS[k]) params.set(k, state[k]);
+    });
+    var qs = params.toString();
+    history.replaceState(null, '', window.location.pathname + (qs ? '?' + qs : '') + window.location.hash);
   }
 
   var state = load();
