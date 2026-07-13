@@ -1,3 +1,11 @@
 import { defineConfig } from 'astro/config';
 
-export default defineConfig({});
+import vercel from '@astrojs/vercel';
+import sitemap from '@astrojs/sitemap';
+
+// https://astro.build/config
+export default defineConfig({
+  site: 'https://sophierantzau.dk',
+  adapter: vercel(),
+  integrations: [sitemap()],
+});
