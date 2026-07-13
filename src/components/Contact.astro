@@ -69,38 +69,47 @@
 
     <!-- Right col: form -->
     <div class="contact-form-wrap">
-      <form class="contact-form" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-        <input type="hidden" name="form-name" value="contact" />
-        <p class="hidden" style="display:none"><label>Don't fill this out: <input name="bot-field" /></label></p>
+      <form id="contact-form" class="contact-form" novalidate>
+        <p style="position:absolute; left:-9999px;" aria-hidden="true">
+          <label>Don't fill this out: <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
 
         <div class="contact-form-row contact-form-row--2col">
           <div class="contact-field">
             <label for="cf-navn" data-da>Navn</label>
             <label for="cf-navn" data-en>Name</label>
-            <input id="cf-navn" type="text" name="navn" autocomplete="name" required />
+            <input id="cf-navn" type="text" name="navn" autocomplete="name" maxlength="200" required />
           </div>
           <div class="contact-field">
             <label for="cf-email">Email</label>
-            <input id="cf-email" type="email" name="email" autocomplete="email" required />
+            <input id="cf-email" type="email" name="email" autocomplete="email" maxlength="200" required />
           </div>
         </div>
 
         <div class="contact-field">
           <label for="cf-telefon" data-da>Telefon <span class="field-opt">(valgfri)</span></label>
           <label for="cf-telefon" data-en>Phone <span class="field-opt">(optional)</span></label>
-          <input id="cf-telefon" type="tel" name="telefon" autocomplete="tel" />
+          <input id="cf-telefon" type="tel" name="telefon" autocomplete="tel" maxlength="50" />
         </div>
 
         <div class="contact-field">
           <label for="cf-besked" data-da>Besked</label>
           <label for="cf-besked" data-en>Message</label>
-          <textarea id="cf-besked" name="besked" rows="5" required></textarea>
+          <textarea id="cf-besked" name="besked" rows="5" maxlength="5000" required></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary contact-submit">
-          <span data-da>Send besked</span>
-          <span data-en>Send message</span>
-          <span class="arr">&rarr;</span>
+        <p id="contact-status" class="contact-status" role="status" aria-live="polite" hidden></p>
+
+        <button type="submit" id="contact-submit" class="btn btn-primary contact-submit">
+          <span data-label-idle>
+            <span data-da>Send besked</span>
+            <span data-en>Send message</span>
+            <span class="arr">&rarr;</span>
+          </span>
+          <span data-label-loading hidden>
+            <span data-da>Sender…</span>
+            <span data-en>Sending…</span>
+          </span>
         </button>
       </form>
     </div>
@@ -108,3 +117,105 @@
     </div><!-- /.contact-grid -->
   </div><!-- /.wrap -->
 </section>
+
+<script>
+  const messages = {
+    da: {
+      missing: 'Udfyld navn, email og besked.',
+      email: 'Indtast en gyldig email-adresse.',
+      length: 'Beskeden er for lang.',
+      invalid: 'Ugyldig forespørgsel.',
+      config: 'Beskeden kunne ikke sendes. Prøv igen senere.',
+      send: 'Beskeden kunne ikke sendes. Prøv igen senere.',
+      network: 'Kunne ikke kontakte serveren. Tjek din forbindelse og prøv igen.',
+      success: 'Tak for din besked — jeg vender tilbage hurtigst muligt.',
+    },
+    en: {
+      missing: 'Please fill in name, email and message.',
+      email: 'Enter a valid email address.',
+      length: 'The message is too long.',
+      invalid: 'Invalid request.',
+      config: 'The message could not be sent. Please try again later.',
+      send: 'The message could not be sent. Please try again later.',
+      network: 'Could not reach the server. Check your connection and try again.',
+      success: "Thanks for your message — I'll get back to you as soon as I can.",
+    },
+  } as const;
+
+  type MsgKey = keyof (typeof messages)['da'];
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('contact-status') as HTMLParagraphElement | null;
+  const submit = document.getElementById('contact-submit') as HTMLButtonElement | null;
+
+  if (form && status && submit) {
+    const idleLabel = submit.querySelector<HTMLElement>('[data-label-idle]');
+    const loadingLabel = submit.querySelector<HTMLElement>('[data-label-loading]');
+
+    const currentLang = () =>
+      (document.body.dataset.lang === 'en' ? 'en' : 'da') as keyof typeof messages;
+
+    const setStatus = (key: MsgKey | '', tone: 'success' | 'error') => {
+      if (!key) {
+        status.hidden = true;
+        status.textContent = '';
+        return;
+      }
+      status.textContent = messages[currentLang()][key];
+      status.hidden = false;
+      status.classList.toggle('contact-status--success', tone === 'success');
+      status.classList.toggle('contact-status--error', tone === 'error');
+    };
+
+    const setLoading = (loading: boolean) => {
+      submit.disabled = loading;
+      idleLabel?.toggleAttribute('hidden', loading);
+      loadingLabel?.toggleAttribute('hidden', !loading);
+      form
+        .querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input, textarea')
+        .forEach((field) => {
+          field.disabled = loading;
+        });
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      setStatus('', 'success');
+
+      if (!form.reportValidity()) return;
+
+      const data = new FormData(form);
+      const payload = {
+        name: String(data.get('navn') ?? '').trim(),
+        email: String(data.get('email') ?? '').trim(),
+        phone: String(data.get('telefon') ?? '').trim(),
+        message: String(data.get('besked') ?? '').trim(),
+        botField: String(data.get('bot-field') ?? ''),
+      };
+
+      setLoading(true);
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        const body = (await res.json().catch(() => ({}))) as {
+          ok?: boolean;
+          error?: MsgKey;
+        };
+
+        if (res.ok && body.ok) {
+          form.reset();
+          setStatus('success', 'success');
+        } else {
+          setStatus(body.error ?? 'send', 'error');
+        }
+      } catch {
+        setStatus('network', 'error');
+      } finally {
+        setLoading(false);
+      }
+    });
+  }
+</script>

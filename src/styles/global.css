@@ -667,7 +667,22 @@ h2.section em { font-style: italic; color: var(--clay); }
   border-color: var(--deep);
 }
 .contact-field textarea { resize: vertical; }
+.contact-field input:disabled,
+.contact-field textarea:disabled { opacity: 0.6; }
 .contact-submit { align-self: flex-start; margin-top: 4px; }
+.contact-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+.contact-submit [data-label-idle],
+.contact-submit [data-label-loading] {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.contact-status {
+  font-size: 14px;
+  margin: 0;
+}
+.contact-status--success { color: var(--deep); }
+.contact-status--error { color: #b3432f; }
 
 @media (max-width: 900px) {
   .contact-grid { grid-template-columns: 1fr; gap: clamp(40px, 6vw, 64px); }
