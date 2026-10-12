@@ -6,6 +6,7 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  jsonLd?: Record<string, unknown>[];
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   description =
     'Personlig coaching med Sophie Rantzau — senior akkrediteret coach med 10+ års erfaring. 1:1 forløb online på dansk og engelsk. Book en gratis intro-samtale.',
   image = '/brand/og-image.jpg',
+  jsonLd: pageJsonLd = [],
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://sophierantzau.dk');
@@ -68,6 +70,7 @@ const jsonLd = {
       inLanguage: 'da-DK',
       publisher: { '@id': `${canonicalURL.origin}/#business` },
     },
+    ...pageJsonLd,
   ],
 };
 ---
@@ -81,7 +84,7 @@ const jsonLd = {
   <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalURL.href} />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
   <meta name="author" content="Sophie Rantzau" />
   <meta name="theme-color" content="#2f4a48" />
   <meta name="generator" content={Astro.generator} />

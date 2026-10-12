@@ -1,0 +1,32 @@
+---
+import { faq } from '../data/faq';
+---
+
+<section class="faq" id="faq">
+  <div class="wrap faq-grid">
+    <div class="faq-body">
+      <span class="eyebrow">
+        <span data-da>Spørgsmål &amp; svar</span><span data-en>Questions &amp; answers</span>
+      </span>
+      <h2 class="section" data-da>Godt <em>at vide.</em></h2>
+      <h2 class="section" data-en>Good <em>to know.</em></h2>
+
+      <div class="faq-list">
+        {faq.map((f) => (
+          <details class="faq-item">
+            <summary>
+              <h3><span data-da>{f.da.q}</span><span data-en>{f.en.q}</span></h3>
+              <span class="faq-toggle" aria-hidden="true"></span>
+            </summary>
+            <p data-da>{f.da.a}</p>
+            <p data-en>{f.en.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+
+    <div class="faq-media">
+      <img src="/bridge/bridge-summer-trees-lawn.jpeg" alt="Udsigt over Sallingsund til broen mellem grønne bøgetræer" width="2268" height="4032" loading="lazy" decoding="async" />
+    </div>
+  </div>
+</section>

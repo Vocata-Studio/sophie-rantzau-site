@@ -1004,3 +1004,83 @@ body[data-logo="sallingsund"] .logo-bridge--sallingsund    { display: block; }
   .logo-name { font-size: 19px; }
   .test-head { flex-direction: column; align-items: flex-start; gap: 12px; }
 }
+
+/* ─── faq ─────────────────────────────────────── */
+.faq {
+  padding: clamp(72px, 9vw, 128px) 0;
+  background: var(--bg-2);
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: clamp(36px, 6vw, 88px);
+  align-items: stretch;
+}
+.faq-body h2.section { margin-bottom: clamp(28px, 3.5vw, 48px); }
+.faq-list { border-bottom: 1px solid var(--rule); }
+.faq-item { border-top: 1px solid var(--rule); }
+.faq-item summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item h3 {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: clamp(18px, 1.5vw, 22px);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--deep);
+  margin: 0;
+  text-wrap: balance;
+  transition: color .2s;
+}
+.faq-item summary:hover h3 { color: var(--clay); }
+.faq-toggle {
+  position: relative;
+  flex: none;
+  width: 14px;
+  height: 14px;
+}
+.faq-toggle::before,
+.faq-toggle::after {
+  content: "";
+  position: absolute;
+  top: 50%; left: 0;
+  width: 100%; height: 1.5px;
+  background: var(--clay);
+  transition: transform .25s ease;
+}
+.faq-toggle::after { transform: rotate(90deg); }
+.faq-item[open] .faq-toggle::after { transform: rotate(0deg); }
+.faq-item p {
+  margin: 0;
+  padding: 0 38px 26px 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--ink-soft);
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+.faq-media {
+  position: relative;
+  overflow: hidden;
+  min-height: 520px;
+}
+.faq-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+}
+@media (max-width: 860px) {
+  .faq-grid { grid-template-columns: 1fr; }
+  .faq-media { min-height: 0; aspect-ratio: 4 / 3; }
+}

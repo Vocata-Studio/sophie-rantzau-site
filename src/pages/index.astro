@@ -7,11 +7,65 @@ import WhoWorksWithMe from '../components/WhoWorksWithMe.astro';
 import WorkingOnline from '../components/WorkingOnline.astro';
 import HowItWorks from '../components/HowItWorks.astro';
 import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
+import { faq } from '../data/faq';
+
+const origin = Astro.site!.origin;
+
+const jsonLd = [
+  {
+    '@type': 'Service',
+    '@id': `${origin}/#coaching`,
+    name: 'Personlig coaching 1:1',
+    serviceType: 'Personlig coaching',
+    description:
+      'Online 1:1 coaching for mennesker, der står i en overgang. Sessioner på én, halvanden eller to timer, som du selv booker. Start med en gratis intro-samtale.',
+    url: `${origin}/#saadan`,
+    provider: { '@id': `${origin}/#business` },
+    areaServed: [
+      { '@type': 'Country', name: 'Danmark' },
+      { '@type': 'Country', name: 'United Kingdom' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: 'https://cal.eu/sophie-rantzau/free-discovery-call',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Coachingsession',
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: 1050,
+          priceCurrency: 'DKK',
+          unitCode: 'HUR',
+        },
+      },
+      {
+        '@type': 'Offer',
+        name: 'Gratis intro-samtale',
+        price: 0,
+        priceCurrency: 'DKK',
+        url: 'https://cal.eu/sophie-rantzau/free-discovery-call',
+      },
+    ],
+  },
+  {
+    '@type': 'FAQPage',
+    '@id': `${origin}/#faq`,
+    inLanguage: 'da-DK',
+    mainEntity: faq.map((f) => ({
+      '@type': 'Question',
+      name: f.da.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.da.a },
+    })),
+  },
+];
 ---
 
-<Layout>
+<Layout jsonLd={jsonLd}>
   <Nav />
   <Hero />
   <About />
@@ -19,6 +73,7 @@ import Footer from '../components/Footer.astro';
   <HowItWorks />
   <WorkingOnline />
   <Testimonials />
+  <Faq />
   <Contact />
   <Footer />
 </Layout>
